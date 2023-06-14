@@ -89,6 +89,15 @@ function App() {
       boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
       fontFamily: "Poppins, sans-serif",
     },
+    networkInfo: {
+      backgroundColor: '#f5f5f5',
+      color: '#333',
+      padding: '10px',
+      borderRadius: '4px',
+      marginBottom: '10px',
+      textAlign: 'center',
+      fontFamily: 'Poppins, sans-serif',
+    },
     message: {
       marginBottom: "5px",
     },
@@ -105,26 +114,30 @@ function App() {
 
   return (
     <div className="app">
-      <div className="container">
-        <img src={pepe} alt="Pepe" />
-        <div className="buttons">
-          <button onClick={connectWallet} className="btn" disabled={!window.ethereum}>
-            {isConnected ? "Disconnect Wallet" : "Connect to Wallet"}
-          </button>
-          <button onClick={claimAirdrop} className="btn" disabled={!isConnected}>
-            Claim Airdrop
-          </button>
-        </div>
+    <div className="container">
+      <img src={pepe} alt="Pepe" />
+      <div className="network-info" style={styles.networkInfo}>
+  Please make sure you are on the Binance Network
+</div> <br />
+      <div className="buttons">
+        <button onClick={connectWallet} className="btn" disabled={!window.ethereum}>
+          {isConnected ? "Disconnect Wallet" : "Connect to Wallet"}
+        </button>
+        <button onClick={claimAirdrop} className="btn" disabled={!isConnected}>
+          Claim Airdrop
+        </button>
       </div>
-      {errorMessage && (
-        <div className="notification" style={styles.notification}>
-          <p style={styles.message}>{errorMessage}</p>
-          <button onClick={clearErrorMessage} style={styles.dismissButton}>
-            Dismiss
-          </button>
-        </div>
-      )}
     </div>
+    {errorMessage && (
+      <div className="notification" style={styles.notification}>
+        <p style={styles.message}>{errorMessage}</p>
+        <button onClick={clearErrorMessage} style={styles.dismissButton}>
+          Dismiss
+        </button>
+      </div>
+    )}
+  </div>
+  
   );
 }
 
