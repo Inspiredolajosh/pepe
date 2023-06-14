@@ -4,7 +4,8 @@ import AirdropContractABI from "../AirdropContractABI.json";
 import pepe from "../public/img/pepe.png";
 import "./App.css";
 
-const provider = new ethers.providers.Web3Provider(window.ethereum);
+// BSC testnet provider
+const provider = new ethers.providers.JsonRpcProvider("https://data-seed-prebsc-1-s1.binance.org:8545");
 const contractAddress = "0x2ca08c5Bc11449c7Bd07Cb9Ce4A66632Db34d977";
 const signer = provider.getSigner();
 const contract = new ethers.Contract(contractAddress, AirdropContractABI, signer);
