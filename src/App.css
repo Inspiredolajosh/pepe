@@ -1,0 +1,36 @@
+.app {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 2rem;
+}
+
+.container {
+  /* width: 900px; */
+  /* margin: 100px auto; */
+  /* background: red; */
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+
+.btn {
+  border: none;
+  outline: none;
+  background-color: #fff;
+  font-size: 20px;
+  padding: 1.7rem 1px;
+  border-radius: 2rem;
+  text-transform: uppercase;
+  cursor: pointer;
+  width: 20rem;
+}
+
+img {
+  max-width: 100%;
+}
