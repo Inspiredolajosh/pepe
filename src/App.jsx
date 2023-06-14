@@ -62,9 +62,19 @@ function App() {
       console.log("Airdrop claimed successfully!");
     } catch (error) {
       console.error(error);
+      if (error.reason === "execution reverted: Already claimed airdrop") {
+        setErrorMessage("Airdrop has already been claimed.");
+      } else if (error.reason === "Fail with error 'Insufficient BNB to claim airdrop'") {
+        setErrorMessage("Insufficient funds to claim the airdrop.");
+      } else {
+        setErrorMessage("Failed to claim the airdrop. Please check your wallet balance or the connection.");
+      }
     }
   };
   
+  
+  
+
   useEffect(() => {
     if (isConnected) {
       console.log("Wallet connected");
