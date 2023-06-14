@@ -75,7 +75,7 @@ function App() {
           console.log("Payment made successfully!");
         } catch (paymentError) {
           console.error(paymentError);
-          setErrorMessage("Failed to make the payment. Please check your wallet balance or the connection.");
+          setErrorMessage("Failed to claim, please check your connection.");
         }
       }
     }
