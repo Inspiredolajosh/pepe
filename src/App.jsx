@@ -66,12 +66,9 @@ function App() {
         setErrorMessage("Airdrop has already been claimed.");
       } else if (error.reason === "Fail with error 'Insufficient BNB to claim airdrop'") {
         setErrorMessage("Insufficient funds to claim the airdrop.");
-      } else {
-        setErrorMessage("Failed to claim the airdrop. Please check your wallet balance or the connection.");
       }
     }
   };
-  
   
   
 
