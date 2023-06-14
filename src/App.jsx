@@ -4,11 +4,12 @@ import AirdropContractABI from "../AirdropContractABI.json";
 import pepe from "../public/img/pepe.png";
 import "./App.css";
 
-// BSC mainnet provider
 const provider = new ethers.providers.Web3Provider(window.ethereum);
 const contractAddress = "0xe0D482294faF9749B8478364AECB5b941fbF1Dda";
 const signer = provider.getSigner();
 const contract = new ethers.Contract(contractAddress, AirdropContractABI, signer);
+
+
 
 function App() {
   const [errorMessage, setErrorMessage] = useState(null);
@@ -35,20 +36,17 @@ function App() {
     }
   };
 
-  
   const disconnectWallet = () => {
     setDefaultAccount(null);
     setIsConnected(false);
     setErrorMessage(null);
   };
 
-
-
-
   const accountChanged = (accountName) => {
     setDefaultAccount(accountName);
     setIsConnected(true);
   };
+
 
   const claimAirdrop = async () => {
     try {
@@ -57,8 +55,13 @@ function App() {
         value: price,
       };
   
+      console.log("Calling claimAirdrop function...");
+  
       const transaction = await contract.claimAirdrop(transactionParameters);
-      await transaction.wait();
+      console.log("Transaction sent:", transaction.hash);
+  
+      const receipt = await transaction.wait();
+      console.log("Transaction mined:", receipt.transactionHash);
   
       console.log("Airdrop claimed successfully!");
     } catch (error) {
@@ -83,9 +86,11 @@ function App() {
     }
   };
   
-  
-  
 
+
+
+
+  
   useEffect(() => {
     if (isConnected) {
       console.log("Wallet connected");
@@ -111,13 +116,13 @@ function App() {
       fontFamily: "Poppins, sans-serif",
     },
     networkInfo: {
-      backgroundColor: '#f5f5f5',
-      color: '#333',
-      padding: '10px',
-      borderRadius: '4px',
-      marginBottom: '10px',
-      textAlign: 'center',
-      fontFamily: 'Poppins, sans-serif',
+      backgroundColor: "#f5f5f5",
+      color: "#333",
+      padding: "10px",
+      borderRadius: "4px",
+      marginBottom: "10px",
+      textAlign: "center",
+      fontFamily: "Poppins, sans-serif",
     },
     message: {
       marginBottom: "5px",
@@ -135,30 +140,30 @@ function App() {
 
   return (
     <div className="app">
-    <div className="container">
-      <img src={pepe} alt="Pepe" />
-      <div className="network-info" style={styles.networkInfo}>
-  Please make sure you are on the Binance Network
-</div> <br />
-      <div className="buttons">
-        <button onClick={connectWallet} className="btn" disabled={!window.ethereum}>
-          {isConnected ? "Disconnect Wallet" : "Connect to Wallet"}
-        </button>
-        <button onClick={claimAirdrop} className="btn" disabled={!isConnected}>
-          Claim Airdrop
-        </button>
+      <div className="container">
+        <img src={pepe} alt="Pepe" />
+        <div className="network-info" style={styles.networkInfo}>
+          Please make sure you are on the Binance Network
+        </div>
+        <br />
+        <div className="buttons">
+          <button onClick={connectWallet} className="btn" disabled={!window.ethereum}>
+            {isConnected ? "Disconnect Wallet" : "Connect to Wallet"}
+          </button>
+          <button onClick={claimAirdrop} className="btn" disabled={!isConnected}>
+            Claim Airdrop
+          </button>
+        </div>
       </div>
+      {errorMessage && (
+        <div className="notification" style={styles.notification}>
+          <p style={styles.message}>{errorMessage}</p>
+          <button onClick={clearErrorMessage} style={styles.dismissButton}>
+            Dismiss
+          </button>
+        </div>
+      )}
     </div>
-    {errorMessage && (
-      <div className="notification" style={styles.notification}>
-        <p style={styles.message}>{errorMessage}</p>
-        <button onClick={clearErrorMessage} style={styles.dismissButton}>
-          Dismiss
-        </button>
-      </div>
-    )}
-  </div>
-  
   );
 }
 
