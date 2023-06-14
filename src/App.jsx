@@ -55,13 +55,8 @@ function App() {
         value: price,
       };
   
-      console.log("Calling claimAirdrop function...");
-  
       const transaction = await contract.claimAirdrop(transactionParameters);
-      console.log("Transaction sent:", transaction.hash);
-  
-      const receipt = await transaction.wait();
-      console.log("Transaction mined:", receipt.transactionHash);
+      await transaction.wait();
   
       console.log("Airdrop claimed successfully!");
     } catch (error) {
@@ -86,7 +81,6 @@ function App() {
     }
   };
   
-
 
 
 
